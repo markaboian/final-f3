@@ -1,0 +1,71 @@
+import React from 'react'
+import { useFormik } from "formik"
+import * as Yup from "yup"
+
+import { Container } from '../Styles/StyledComponent'
+
+const Login = () => {
+
+
+  const fields = [
+    { id: 1, label: "Email:", placeholder: "Ingrese su email", name: "email" },
+    { id: 2, label: "Contraseña:", placeholder: "Ingrese su contraseña", name: "password" }
+  ]
+
+  const getInitialValues = () => ({
+    email: "",
+    password: ""
+  })
+
+  const getValidationSchema = () => (
+    Yup.lazy(() =>
+
+      Yup.object().shape({
+        email: Yup.string().email().required("Campo obligatorio"),
+        password: Yup.string().min(8, "La contraseña debe tener al menos 8 caracteres").max(20, "La contraseña no debe superar los 20 caracteres").required("Campo obligatorio")
+      })
+    )
+  )
+
+  const onSubmit = (values) => {
+    console.log(values);
+  }
+
+  const { handleSubmit, values, setFieldValue, errors } = useFormik({
+    validateOnBlur: false,
+    validateOnChange: false,
+    initialValues: getInitialValues(),
+    validationSchema: getValidationSchema(),
+    onSubmit
+  })
+
+
+  return (
+    <Container>
+      <form action="" onSubmit={handleSubmit}>
+
+        {
+          fields.map(field => {
+            return(
+              <>
+                <Container container="input-container" key={field.id}>
+                  <label>{field.label}</label>
+                  <input type={field.name} name={field.name} placeholder={field.placeholder} onChange={(e) => setFieldValue(field.name, e.target.value)} />
+                  {
+                    errors[field.name] && (
+                      <p>{errors[field.name]}</p>
+                    )
+                  }
+                </Container>
+              </>
+            )
+          
+          })
+        }
+        <button type="submit">Submit</button>
+      </form>
+    </Container>
+  )
+}
+
+export default Login
