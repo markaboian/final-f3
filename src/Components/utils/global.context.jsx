@@ -44,7 +44,7 @@ export const ContextProvider = ({ children }) => {
 	const initialState = {
 		isLogged: !!sessionStorage.getItem("logged"),
 		theme: "",
-		data: []
+		data: !JSON.parse(localStorage.getItem("favorites")) ? [] : JSON.parse(localStorage.getItem("favorites"))
 	}
 
 	const [state, dispatch] = useReducer(handleDispatch, initialState)

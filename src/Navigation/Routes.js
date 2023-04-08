@@ -13,7 +13,7 @@ export const routes = [
     },
     {
         id: 2,
-        path: "/dentist:id",
+        path: "/dentist/:id",
         Component: Detail
     },
     {
