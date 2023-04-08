@@ -7,14 +7,19 @@ import { ContextGlobal } from '../Components/utils/global.context'
 
 const Navbar = () => {
 
-	const { dispatch } = useContext(ContextGlobal)
+	const { state, dispatch } = useContext(ContextGlobal)
 
 	const handleLogOut = () => {
 		dispatch({ type: "LOGOUT" })
 	}
 
 	const handleTheme = () => {
-		dispatch({ type: "DARK" })
+		if (state.theme === "dark") {
+			dispatch({ type: "LIGHT" })
+		}
+		else{
+			dispatch({ type: "DARK" })
+		}
 	}
 	return (
 		<nav>

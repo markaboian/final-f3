@@ -9,23 +9,21 @@ function App() {
     return (
         <BrowserRouter>
             <ContextProvider>
-                <div className="App">
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route element={<ProtectedRoutes />}>
-                            <Route element={<Layout />}>
-                                {
-                                    routes.map(({ id, path, Component }) => {
-                                        return (
-                                            <Route key={id} path={path} element={<Component />} />
-                                        )
-                                    })
-                                }
-                            </Route>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route element={<ProtectedRoutes />}>
+                        <Route element={<Layout />}>
+                            {
+                                routes.map(({ id, path, Component }) => {
+                                    return (
+                                        <Route key={id} path={path} element={<Component />} />
+                                    )
+                                })
+                            }
                         </Route>
-                        <Route path="/" element={<Navigate to="/login"/>}/>
-                    </Routes>
-                </div>
+                    </Route>
+                    <Route path="/" element={<Navigate to="/login"/>}/>
+                </Routes>
             </ContextProvider>
         </BrowserRouter>
     );

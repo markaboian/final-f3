@@ -18,12 +18,18 @@ const handleDispatch = (state, { type, payload }) => {
 				isLogged: false
 			}
 
-
 		case "DARK":
 			localStorage.setItem("theme", JSON.stringify("dark"))
 			return {
 				...state,
 				theme: "dark"
+			}
+
+		case "LIGHT":
+			localStorage.removeItem("theme")
+			return {
+				...state,
+				theme: null
 			}
 
 		case "FAVS":
@@ -43,7 +49,7 @@ export const ContextProvider = ({ children }) => {
 
 	const initialState = {
 		isLogged: !!sessionStorage.getItem("logged"),
-		theme: "",
+		theme: localStorage.getItem("theme"),
 		data: !JSON.parse(localStorage.getItem("favorites")) ? [] : JSON.parse(localStorage.getItem("favorites"))
 	}
 
