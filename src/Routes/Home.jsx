@@ -27,7 +27,7 @@ const Home = () => {
         {
           values.map((value) => {
             return (
-              <Card key={value.id} name={value.name} username={value.username} id={value.id} />
+              <Card key={value.id} name={value.name} username={value.username} id={value.id} value={value}/>
             )
           })
         }

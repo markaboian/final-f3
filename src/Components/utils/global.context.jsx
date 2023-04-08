@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from "react";
 
 export const ContextGlobal = createContext({});
 
-const handleDispatch = (state, { type }) => {
+const handleDispatch = (state, { type, payload }) => {
 	switch (type) {
 		case "LOGGED":
 			sessionStorage.setItem("logged", JSON.stringify("yes"))
@@ -26,6 +26,13 @@ const handleDispatch = (state, { type }) => {
 				theme: "dark"
 			}
 
+		case "FAVS":
+			localStorage.setItem("favorites", JSON.stringify([...state.data, payload]))
+			return {
+				...state,
+				data: [...state.data, payload]
+			}	
+
 		default:
 			return state;
 	}
@@ -41,6 +48,8 @@ export const ContextProvider = ({ children }) => {
 	}
 
 	const [state, dispatch] = useReducer(handleDispatch, initialState)
+
+	console.log(state.data)
 
 	const propiedades = {
 		state,
