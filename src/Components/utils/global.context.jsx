@@ -2,6 +2,17 @@ import React, { createContext, useReducer } from "react";
 
 export const ContextGlobal = createContext({});
 
+const existsInFavorites = (favs, id) => {
+	return favs.find((dentist) => {
+		if (id === dentist.id) {
+			return true
+		}
+		else{
+			return false
+		}
+	})
+}
+
 const handleDispatch = (state, { type, payload }) => {
 	switch (type) {
 		case "LOGGED":
@@ -33,11 +44,16 @@ const handleDispatch = (state, { type, payload }) => {
 			}
 
 		case "FAVS":
-			localStorage.setItem("favorites", JSON.stringify([...state.data, payload]))
-			return {
-				...state,
-				data: [...state.data, payload]
-			}	
+			if (existsInFavorites(state.data, payload.id)) {
+				alert("Dentist already in favorites")
+			} else{
+				localStorage.setItem("favorites", JSON.stringify([...state.data, payload]))
+				alert("Dentist added to favorites")
+				return {
+					...state,
+					data: [...state.data, payload]
+				}	
+			}
 
 		default:
 			return state;
@@ -45,7 +61,6 @@ const handleDispatch = (state, { type, payload }) => {
 }
 
 export const ContextProvider = ({ children }) => {
-	//Aqui deberan implementar la logica propia del Context, utilizando el hook useMemo
 
 	const initialState = {
 		isLogged: !!sessionStorage.getItem("logged"),

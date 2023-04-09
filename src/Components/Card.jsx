@@ -7,7 +7,6 @@ const Card = ({ name, username, id, value }) => {
 	const { dispatch } = useContext(ContextGlobal)
 
 	const addFav = () => {
-		alert("Dentist added to favorites")
 		dispatch({ type: "FAVS", payload: value})
 	}
 
