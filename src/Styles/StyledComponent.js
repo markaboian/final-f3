@@ -1,12 +1,23 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 75vh;
+    height: 90vh;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
+
+    ${({container}) => container === "login-form" && css`
+        justify-content: center;
+        align-items: center;
+    `}
+
+    ${({container}) => container === "contact-form" && css`
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    `}
+
 `
 
 export const Input = styled.input`
@@ -26,4 +37,5 @@ export const Button = styled.button`
     padding: 5px 0px 5px 0px;
     border-radius: 4px;
     border: 1px solid blue;
+    cursor: pointer;
 `

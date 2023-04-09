@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Button } from "../Styles/StyledComponent";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const Form = () => {
 	//Aqui deberan implementar el form completo con sus validaciones
+
+	const [ message, setMessage ] = useState(false)
 
 	const getInitialValues = () => ({
 		name: "",
@@ -23,16 +25,13 @@ const Form = () => {
 			})
 		);
 
-	const handleOnClick = (values) => {
-		return (
-			<p>
-				Gracias {values.name}, te contactaremos cuanto antes via mail.
-			</p>
-		);
+	const handleMessageOnClick = () => {
+		setMessage(true)
 	};
 
 	const onSubmit = (values) => {
 		console.log(values);
+		handleMessageOnClick();
 	};
 
 	const { handleSubmit, values, setFieldValue, errors } = useFormik({
@@ -44,33 +43,40 @@ const Form = () => {
 	});
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<label>Nombre completo</label>
-				<Input
-					type="text"
-					name="name"
-					id="name"
-					onChange={(e) => {
-						setFieldValue("name", e.target.value);
-					}}
-				/>
+		<>
+			<div>
+				<form onSubmit={handleSubmit}>
+					<label>Nombre completo</label>
+					<Input
+						type="text"
+						name="name"
+						id="name"
+						onChange={(e) => {
+							setFieldValue("name", e.target.value);
+						}}
+					/>
 
-				<label>Email</label>
-				<Input
-					type="email"
-					name="email"
-					id="email"
-					onChange={(e) => {
-						setFieldValue("email", e.target.value);
-					}}
-				/>
+					<label>Email</label>
+					<Input
+						type="email"
+						name="email"
+						id="email"
+						onChange={(e) => {
+							setFieldValue("email", e.target.value);
+						}}
+					/>
 
-				<Button type="submit" onClick={handleOnClick}>
-					Submit
-				</Button>
-			</form>
-		</div>
+					<Button type="submit">
+						Submit
+					</Button>
+				</form>
+			</div>
+			<div>
+				{
+					message ? <p>Gracias, {values.name}, te contactaremos via mail cuanto antes.</p> : ""
+				}
+			</div>
+		</>
 	);
 };
 

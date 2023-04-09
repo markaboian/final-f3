@@ -15,7 +15,6 @@ const Detail = () => {
   useEffect(() => {
     axios.get(`${endpoint}/${id}`)
       .then(({ data }) => {
-        console.log(data)
         setValues(data)
       })
       .catch((error) => {
@@ -25,14 +24,13 @@ const Detail = () => {
 
   return (
     <>
-      <h1>Detail Dentist id {id}</h1>
       {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
       {/* Deberan mostrar el name - email - phone - website por cada user en especifico */}
-      <div>
-        <h1>{values.name}</h1>
-        <p>{values.email}</p>
-        <p>{values.phone}</p>
-        <p>{values.website}</p>
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid black", backgroundColor: "grey"}}>
+        <h1 style={{textTransform: "uppercase"}}>{values.name}</h1>
+        <p>Email: {values.email}</p>
+        <p>Cellphone: {values.phone}</p>
+        <p>Website: {values.website}</p>
       </div>
 
     </>

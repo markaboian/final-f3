@@ -55,8 +55,6 @@ export const ContextProvider = ({ children }) => {
 
 	const [state, dispatch] = useReducer(handleDispatch, initialState)
 
-	console.log(state.data)
-
 	const propiedades = {
 		state,
 		dispatch

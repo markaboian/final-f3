@@ -21,7 +21,7 @@ const Login = () => {
   }
 
   return (
-    <Container>
+    <Container container="login-form">
       <form action="" onSubmit={handleSubmit}>
         <label>Email:</label>
         <Input type="email" name="email" id="email" placeholder='Ingrese su email' value={values.email} onChange={(e) => setValues({ ...values, email: e.target.value })} />
